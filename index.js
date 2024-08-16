@@ -31,6 +31,12 @@ const client = new MongoClient(uri, {
   
       const productsCollection =client.db('styleroomDB').collection('products');
         
+         //getting data from mongodb
+         app.get('/products',async(req,res)=>{
+            const cursor = productsCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
    
   
   
