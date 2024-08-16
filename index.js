@@ -34,20 +34,33 @@ const client = new MongoClient(uri, {
          //getting data from mongodb
          app.get('/products', async (req, res) => {
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
-            const skip = (page - 1) * limit;
+            const limit = parseInt(req.query.limit) || 9;
+            const sortField = req.query.sortField || 'creationDate';
+            const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
+            const search = req.query.search || '';
         
-            const totalProducts = await productsCollection.countDocuments();
-            const cursor = productsCollection.find().skip(skip).limit(limit);
-            const products = await cursor.toArray();
+            
+            try {
+                const productsCollection = client.db('styleroomDB').collection('products');
+                const totalProducts = await productsCollection.countDocuments(query);
+                const totalPages = Math.ceil(totalProducts / limit);
         
-            res.send({
-                totalProducts,
-                totalPages: Math.ceil(totalProducts / limit),
-                currentPage: page,
-                products
-            });
+                const products = await productsCollection.find(query)
+                    .sort({ [sortField]: sortOrder })
+                    .skip((page - 1) * limit)
+                    .limit(limit)
+                    .toArray();
+        
+                res.send({
+                    products,
+                    currentPage: page,
+                    totalPages
+                });
+            } catch (error) {
+                res.status(500).send({ message: error.message });
+            }
         });
+        
         
    
   
