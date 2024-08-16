@@ -39,7 +39,13 @@ const client = new MongoClient(uri, {
             const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
             const search = req.query.search || '';
         
-            
+            const query = {
+                $or: [
+                    { productName: { $regex: search, $options: 'i' } },
+                    { brand: { $regex: search, $options: 'i' } }
+                ]
+            };
+        
             try {
                 const productsCollection = client.db('styleroomDB').collection('products');
                 const totalProducts = await productsCollection.countDocuments(query);
