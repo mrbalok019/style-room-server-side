@@ -32,11 +32,23 @@ const client = new MongoClient(uri, {
       const productsCollection =client.db('styleroomDB').collection('products');
         
          //getting data from mongodb
-         app.get('/products',async(req,res)=>{
-            const cursor = productsCollection.find();
-            const result = await cursor.toArray();
-            res.send(result);
-        })
+         app.get('/products', async (req, res) => {
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const skip = (page - 1) * limit;
+        
+            const totalProducts = await productsCollection.countDocuments();
+            const cursor = productsCollection.find().skip(skip).limit(limit);
+            const products = await cursor.toArray();
+        
+            res.send({
+                totalProducts,
+                totalPages: Math.ceil(totalProducts / limit),
+                currentPage: page,
+                products
+            });
+        });
+        
    
   
   
