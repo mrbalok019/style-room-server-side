@@ -1,15 +1,15 @@
-#Style Room
+# Style Room
 
 ## server side code 
 
 This is the backend for a product filtering, sorting, and pagination web application built using the MERN stack.
 
-Features
-Product Management: CRUD operations for products.
-Filtering & Sorting: Search, categorize, and sort products.
-Pagination: Efficient loading with pagination.
-Authentication: Google and Email/Password authentication via Firebase.
-Technologies Used
+## Features
+1. Product Management: CRUD operations for products.
+2. Filtering & Sorting: Search, categorize, and sort products.
+3. Pagination: Efficient loading with pagination.
+4. Authentication: Google and Email/Password authentication via Firebase.
+## Technologies Used
 Node.js
 Express.js
 MongoDB
@@ -22,18 +22,19 @@ Node.js
 MongoDB
 Firebase Project
 Installation
-Clone the repository:
 
-bash
-Copy code
-git clone https://github.com/yourusername/product-filtering-api.git
+## Clone the repository:
+
+1. bash
+2. Copy code
+3. git clone https://github.com/mrbalok019/style-room-server-side.git
 cd product-filtering-api
-Install dependencies:
+4. Install dependencies:
 
 bash
 Copy code
 npm install
-Environment Variables: Create a .env file in the root with:
+5. Environment Variables: Create a .env file in the root with:
 
 env
 Copy code
@@ -46,7 +47,7 @@ FIREBASE_PROJECT_ID=your_firebase_project_id
 FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 FIREBASE_APP_ID=your_firebase_app_id
-Run the server:
+6. Run the server:
 
 bash
 Copy code
